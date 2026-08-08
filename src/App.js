@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { motion } from "framer-motion";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Skills from "./pages/Skills";
+import Experience from "./pages/Experience";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+          <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+          <Route path="/skills" element={<PageWrapper><Skills /></PageWrapper>} />
+          <Route path="/experience" element={<PageWrapper><Experience /></PageWrapper>} />
+          <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
+          <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+        </Routes>
+      </main>
+    </Router>
+  );
+}
+
+function PageWrapper({ children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      className="page"
+    >
+      {children}
+    </motion.div>
   );
 }
 
